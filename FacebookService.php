@@ -3,7 +3,7 @@
 namespace DtlFacebook\Service;
 
 use DtlFacebook\Service\RequestService;
-use Zend\Json\Json;
+use Laminas\Json\Json;
 
 class FacebookService {
     

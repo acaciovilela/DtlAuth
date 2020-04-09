@@ -2,8 +2,6 @@
 
 namespace DtlAuth;
 
-use Zend\ServiceManager\Factory\InvokableFactory;
-
 return [
     /**
      * DtlOAuth2 default configs
@@ -49,56 +47,9 @@ return [
          */
         'exchange_token_uri' => '',
     ],
-    /**
-     * Facebook configuration
-     * 
-     * Enter with your data for each field
-     */
-    'facebook' => [
-        /**
-         * Facebook Client ID
-         */
-        'client_id' => '2354348601273813',
-        /**
-         * Facebook Client Secret
-         */
-        'client_secret' => '75107d8887315c4f2d790a4085ac0b45',
-        /**
-         * Facebook Graph API base URI
-         */
-        'api_base_uri' => 'https://graph.facebook.com/',
-        /**
-         * Current API version 
-         */
-        'api_version' => 'v3.2',
-        /**
-         * Redirect URI to your application
-         */
-        'redirect_uri' => 'https://dartalla.com.br/oauth/facebook/profile',
-        /**
-         * Facebook scopes in authorize request
-         */
-        'scope' => '',
-    ],
     'controllers' => [
         'factories' => [
             Controller\OAuthController::class => Controller\Factory\OAuthControllerFactory::class,
-        ],
-    ],
-    'service_manager' => [
-        'factories' => [
-            Authentication\Adapters\FacebookAdapter::class => Authentication\Adapters\Factory\FacebookAdapterFactory::class,
-            Authentication\Adapters\SicoobAdapter::class => Authentication\Adapters\Factory\SicoobAdapterFactory::class,
-            Service\Social\Facebook::class => Service\Social\Factory\FacebookFactory::class,
-            Service\Manager\FacebookManager::class => Service\Manager\Factory\FacebookManagerFactory::class,
-        ],
-    ],
-    'view_helpers' => [
-        'factories' => [
-            View\Helper\FacebookSignInBtn::class => View\Helper\Factory\FacebookSignInBtnFactory::class,
-        ],
-        'aliases' => [
-            'facebookSignInBtn' => View\Helper\FacebookSignInBtn::class,
         ],
     ],
     'access_filter' => [
@@ -115,7 +66,7 @@ return [
     'router' => [
         'routes' => [
             'dtl-oauth' => [
-                'type' => \Zend\Router\Http\Segment::class,
+                'type' => \Laminas\Router\Http\Segment::class,
                 'options' => [
                     'route' => '/oauth[/:network[/:type]]',
                     'constraints' => [
@@ -132,18 +83,4 @@ return [
             ],
         ],
     ],
-    'doctrine' => [
-        'driver' => [
-            __NAMESPACE__ . '_driver' => [
-                'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
-                'cache' => 'array',
-                'paths' => [__DIR__ . '/../src/Entity']
-            ],
-            'orm_default' => [
-                'drivers' => [
-                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
-                ]
-            ]
-        ]
-    ]
 ];

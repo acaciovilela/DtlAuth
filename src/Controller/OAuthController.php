@@ -2,7 +2,7 @@
 
 namespace DtlAuth\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 use DtlAuth\Service\OAuth2Service;
 use DtlAuth\Service\Manager\FacebookManager;
 

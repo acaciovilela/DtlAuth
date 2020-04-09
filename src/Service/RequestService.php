@@ -2,9 +2,9 @@
 
 namespace DtlAuth\Service;
 
-use Zend\Http\Client;
-use Zend\Http\Response;
-use Zend\Json\Json;
+use Laminas\Http\Client;
+use Laminas\Http\Response;
+use Laminas\Json\Json;
 
 class RequestService extends Client {
 

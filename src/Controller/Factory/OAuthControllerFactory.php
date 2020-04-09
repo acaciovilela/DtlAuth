@@ -2,7 +2,7 @@
 
 namespace DtlAuth\Controller\Factory;
 
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use DtlAuth\Controller\OAuthController;
 use DtlAuth\Service\OAuth2Service;
