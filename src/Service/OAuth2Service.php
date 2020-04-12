@@ -185,13 +185,12 @@ class OAuth2Service {
             }
 
             $request = new RequestService();
-            
+
             if ($setHeader) {
                 $request->setHeaders('Authorization: Basic MlZqWmJ5M3d6NHZpMWVWVGJYVmozenFSaDJjYTpaZGZMR2JmdGlJc3JEZW5MVWdZbXVadnFUY1lh');
             }
-            
+
             $response = $request->request($baseUrl, 'POST', $params);
-            
         } else {
 
             if (!isset($code)) {
@@ -229,10 +228,64 @@ class OAuth2Service {
             $request = new RequestService();
             $response = $request->request($uri, 'POST', $params);
         }
-        
+
         return $request->getJsonDecode($response);
     }
 
+    /**
+     * 
+     * @param string $toke
+     */
+    public function getRefreshToken(string $token, array $parameters = [], bool $setHeader = false) {
+
+        if ($this->getAdapter()) {
+
+            $baseUrl = $this->getAdapter()->getAccessTokenUri();
+
+            $params = $this->getAdapter()->getResfreshTokenParameters($token);
+
+            if (!empty($parameters)) {
+                $params = array_merge($params, $parameters);
+            }
+
+            $request = new RequestService();
+
+            $response = $request->request($baseUrl, 'POST', $params);
+        } else {
+
+            if (null === $this->getClientId()) {
+                throw new \Exception('Client ID is not defined!');
+            }
+
+            $params['client_id'] = $this->getClientId();
+
+            if (null === $this->getClientSecret()) {
+                throw new \Exception('Client secret is not defined!');
+            }
+
+            $params['client_secret'] = $this->getClientSecret();
+
+            $params['grant_type'] = $this->getGrantType();
+
+            if (null === $this->getAccessTokenUri()) {
+                throw new \Exception('Access Token URI is not defined!');
+            }
+
+            $uri = $this->getAccessTokenUri();
+
+            $request = new RequestService();
+
+            $response = $request->request($uri, 'POST', $params);
+        }
+
+        return $request->getJsonDecode($response);
+    }
+
+    /**
+     * 
+     * @param array $params
+     * @return string
+     */
     public function createHttpQuery(array $params) {
 
         $pairs = [];
