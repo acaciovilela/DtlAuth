@@ -192,7 +192,6 @@ class OAuth2Service {
             
             $response = $request->request($baseUrl, 'POST', $params);
             
-            var_dump($response);exit;
         } else {
 
             if (!isset($code)) {
