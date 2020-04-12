@@ -242,7 +242,7 @@ class OAuth2Service {
 
             $baseUrl = $this->getAdapter()->getAccessTokenUri();
 
-            $params = $this->getAdapter()->getResfreshTokenParameters($token);
+            $params = $this->getAdapter()->getRefreshTokenParameters($token);
 
             if (!empty($parameters)) {
                 $params = array_merge($params, $parameters);
